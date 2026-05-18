@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Teacher Interest Application – IntelliKids Academy</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #f0f7f4;
+    color: #1a1a1a;
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .page-wrap { max-width: 660px; margin: 0 auto; }
+
+  .header {
+    background: linear-gradient(135deg, #0F6E56 0%, #1D9E75 100%);
+    border-radius: 16px 16px 0 0;
+    padding: 2rem 2rem 1.75rem;
+    color: white;
+  }
+
+  .logo-row { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; }
+  .logo-box { width: 42px; height: 42px; background: rgba(255,255,255,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .logo-text { font-size: 12px; color: rgba(255,255,255,0.7); margin-bottom: 2px; }
+  .logo-title { font-size: 18px; font-weight: 600; color: white; }
+  .header-desc { font-size: 13.5px; color: rgba(255,255,255,0.85); line-height: 1.6; }
+
+  .pay-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 8px;
+    margin-top: 1.25rem;
+    background: rgba(0,0,0,0.15);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+  }
+  .pay-item { font-size: 11.5px; color: rgba(255,255,255,0.7); }
+  .pay-item strong { display: block; font-size: 15px; font-weight: 600; color: white; margin-top: 2px; }
+
+  .body {
+    background: #ffffff;
+    border: 1px solid #d6ede6;
+    border-top: none;
+    border-radius: 0 0 16px 16px;
+    padding: 2rem;
+  }
+
+  .section { margin-bottom: 2rem; }
+
+  .section-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #0F6E56;
+    margin-bottom: 1rem;
+    padding-bottom: 8px;
+    border-bottom: 1.5px solid #d6ede6;
+  }
+
+  .field { margin-bottom: 1rem; }
+
+  .field label { display: block; font-size: 13px; font-weight: 500; color: #444; margin-bottom: 5px; }
+  .field label .req { color: #e53935; margin-left: 2px; }
+
+  .field input:not([type="checkbox"]),
+  .field select,
+  .field textarea {
+    width: 100%;
+    font-size: 14px;
+    font-family: inherit;
+    padding: 9px 12px;
+    border: 1px solid #cde8df;
+    border-radius: 8px;
+    background: #fafffe;
+    color: #1a1a1a;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230F6E56' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+  }
+
+  .field input:not([type="checkbox"]):focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: #1D9E75;
+    box-shadow: 0 0 0 3px rgba(29,158,117,0.12);
+    background: #fff;
+  }
+
+  .field textarea { min-height: 90px; resize: vertical; line-height: 1.5; }
+
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  @media (max-width: 500px) {
+    .row2 { grid-template-columns: 1fr; }
+    .pay-strip { grid-template-columns: 1fr 1fr; }
+  }
+
+  .checkbox-group { display: flex; flex-direction: column; gap: 7px; margin-top: 4px; }
+  .check-item { display: flex; align-items: flex-start; gap: 9px; font-size: 13.5px; color: #333; cursor: pointer; line-height: 1.45; }
+  .check-item input[type="checkbox"] { width: 16px; height: 16px; margin-top: 1px; flex-shrink: 0; accent-color: #0F6E56; cursor: pointer; }
+
+  .notice {
+    background: #e8f7f1;
+    border: 1px solid #b3deca;
+    border-radius: 10px;
+    padding: 0.85rem 1.1rem;
+    font-size: 12.5px;
+    color: #085041;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 1.25rem;
+    line-height: 1.55;
+  }
+  .notice-icon { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+
+  .agreement { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #444; margin-bottom: 1.5rem; line-height: 1.5; cursor: pointer; }
+  .agreement input[type="checkbox"] { width: 16px; height: 16px; margin-top: 2px; flex-shrink: 0; accent-color: #0F6E56; cursor: pointer; }
+
+  .submit-btn {
+    width: 100%;
+    background: #0F6E56;
+    color: white;
+    border: none;
+    padding: 13px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    letter-spacing: 0.01em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .submit-btn:hover { background: #085041; }
+  .submit-btn:active { transform: scale(0.99); }
+  .submit-btn:disabled { background: #7fc4ae; cursor: not-allowed; }
+
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .footer-note { text-align: center; font-size: 12px; color: #888; margin-top: 1rem; }
+  .footer-note a { color: #0F6E56; text-decoration: none; }
+
+  .success-screen { display: none; text-align: center; padding: 3rem 2rem; }
+  .success-icon { width: 64px; height: 64px; background: #e8f7f1; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; font-size: 30px; }
+  .success-screen h2 { font-size: 20px; font-weight: 600; color: #0F6E56; margin-bottom: 0.5rem; }
+  .success-screen p { font-size: 14px; color: #555; line-height: 1.6; }
+
+  .field input:not([type="checkbox"]).error, .field select.error, .field textarea.error { border-color: #e53935; box-shadow: 0 0 0 3px rgba(229,57,53,0.1); }
+  .error-msg { font-size: 11.5px; color: #e53935; margin-top: 4px; display: none; }
+  .error-msg.show { display: block; }
+
+  .submit-error { background: #fff0f0; border: 1px solid #f5c1c1; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #a32d2d; margin-bottom: 1rem; display: none; }
+  .submit-error.show { display: block; }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+  <div class="header">
+    <div class="logo-row">
+      <div class="logo-box">📚</div>
+      <div>
+        <div class="logo-text">intellikidsacademy.com</div>
+        <div class="logo-title">Teacher Interest Application</div>
+      </div>
+    </div>
+    <p class="header-desc">Thank you for your interest in joining IntelliKids Academy! Please fill in the form below and we'll be in touch within 2–3 business days.</p>
+    <div class="pay-strip">
+      <div class="pay-item">💰 Regular class<strong>₹300 / class</strong></div>
+      <div class="pay-item">🎯 Demo session<strong>₹150 / demo</strong></div>
+      <div class="pay-item">🌟 Student referral<strong>₹1,000 bonus</strong></div>
+      <div class="pay-item">📅 Fixed salary<strong>After 3 months</strong></div>
+    </div>
+  </div>
+
+  <div class="body" id="formBody">
+    <form id="appForm" novalidate>
+
+      <div class="section">
+        <div class="section-label">Personal information</div>
+        <div class="row2">
+          <div class="field">
+            <label for="fullName">Full name <span class="req">*</span></label>
+            <input type="text" id="fullName" placeholder="Your full name" required />
+            <div class="error-msg" id="fullName-err">Please enter your full name.</div>
+          </div>
+          <div class="field">
+            <label for="email">Email address <span class="req">*</span></label>
+            <input type="email" id="email" placeholder="you@email.com" required />
+            <div class="error-msg" id="email-err">Please enter a valid email.</div>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="phone">WhatsApp number <span class="req">*</span></label>
+            <input type="tel" id="phone" placeholder="+91 XXXXX XXXXX" required />
+            <div class="error-msg" id="phone-err">Please enter your WhatsApp number.</div>
+          </div>
+          <div class="field">
+            <label for="city">City / location <span class="req">*</span></label>
+            <input type="text" id="city" placeholder="City, State" required />
+            <div class="error-msg" id="city-err">Please enter your city.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Teaching background</div>
+        <div class="row2">
+          <div class="field">
+            <label for="qualification">Highest qualification <span class="req">*</span></label>
+            <select id="qualification" required>
+              <option value="">Select…</option>
+              <option>Bachelor's degree</option>
+              <option>Master's degree</option>
+              <option>B.Ed / M.Ed</option>
+              <option>PhD</option>
+              <option>Other</option>
+            </select>
+            <div class="error-msg" id="qualification-err">Please select your qualification.</div>
+          </div>
+          <div class="field">
+            <label for="experience">Years of teaching experience <span class="req">*</span></label>
+            <select id="experience" required>
+              <option value="">Select…</option>
+              <option>Less than 1 year</option>
+              <option>1–2 years</option>
+              <option>3–5 years</option>
+              <option>6–10 years</option>
+              <option>10+ years</option>
+            </select>
+            <div class="error-msg" id="experience-err">Please select your experience.</div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="subjects">Subject(s) you teach <span class="req">*</span></label>
+          <input type="text" id="subjects" placeholder="e.g. Mathematics, English, Science…" required />
+          <div class="error-msg" id="subjects-err">Please enter at least one subject.</div>
+        </div>
+        <div class="field">
+          <label>Age groups you are comfortable teaching <span class="req">*</span></label>
+          <div class="checkbox-group" id="ageGroups">
+            <label class="check-item"><input type="checkbox" name="age" value="Early childhood (3–6 years)" /> Early childhood (3–6 years)</label>
+            <label class="check-item"><input type="checkbox" name="age" value="Primary (6–10 years)" /> Primary (6–10 years)</label>
+            <label class="check-item"><input type="checkbox" name="age" value="Middle school (10–13 years)" /> Middle school (10–13 years)</label>
+            <label class="check-item"><input type="checkbox" name="age" value="High school (13–18 years)" /> High school (13–18 years)</label>
+          </div>
+          <div class="error-msg" id="ageGroups-err">Please select at least one age group.</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Online teaching setup</div>
+        <div class="row2">
+          <div class="field">
+            <label for="onlineExp">Online teaching experience <span class="req">*</span></label>
+            <select id="onlineExp" required>
+              <option value="">Select…</option>
+              <option>No experience yet</option>
+              <option>Less than 6 months</option>
+              <option>6 months – 1 year</option>
+              <option>1–3 years</option>
+              <option>3+ years</option>
+            </select>
+            <div class="error-msg" id="onlineExp-err">Please select your online experience.</div>
+          </div>
+          <div class="field">
+            <label for="timing">Preferred class timing (IST) <span class="req">*</span></label>
+            <select id="timing" required>
+              <option value="">Select…</option>
+              <option>Morning (6am – 12pm)</option>
+              <option>Afternoon (12pm – 5pm)</option>
+              <option>Evening (5pm – 9pm)</option>
+              <option>Flexible / any time</option>
+            </select>
+            <div class="error-msg" id="timing-err">Please select your preferred timing.</div>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="classesPerWeek">Classes available per week <span class="req">*</span></label>
+            <select id="classesPerWeek" required>
+              <option value="">Select…</option>
+              <option>1–5 classes</option>
+              <option>6–10 classes</option>
+              <option>11–15 classes</option>
+              <option>15+ classes</option>
+            </select>
+            <div class="error-msg" id="classesPerWeek-err">Please select your availability.</div>
+          </div>
+          <div class="field">
+            <label for="device">Device + stable internet available? <span class="req">*</span></label>
+            <select id="device" required>
+              <option value="">Select…</option>
+              <option>Yes, fully equipped</option>
+              <option>Yes, but could be improved</option>
+              <option>No, need support</option>
+            </select>
+            <div class="error-msg" id="device-err">Please select an option.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">About you</div>
+        <div class="field">
+          <label for="motivation">Why do you want to join IntelliKids Academy? <span class="req">*</span></label>
+          <textarea id="motivation" placeholder="Share your teaching philosophy, relevant experience, or anything that sets you apart…" required></textarea>
+          <div class="error-msg" id="motivation-err">Please write a brief introduction.</div>
+        </div>
+        <div class="field">
+          <label for="portfolio">LinkedIn or portfolio link (optional)</label>
+          <input type="url" id="portfolio" placeholder="https://…" />
+        </div>
+        <div class="field">
+          <label for="referral">How did you hear about us?</label>
+          <select id="referral">
+            <option value="">Select…</option>
+            <option>Social media (Instagram / Facebook)</option>
+            <option>WhatsApp group</option>
+            <option>Referral from a friend</option>
+            <option>Google search</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="notice">
+        <span class="notice-icon">ℹ️</span>
+        <div>By submitting, you acknowledge the IntelliKids Academy payment structure: ₹300/class (regular), ₹150/demo, ₹1,000 bonus per successful student conversion, with a 3-month per-class engagement period before a fixed monthly salary review.</div>
+      </div>
+
+      <label class="agreement">
+        <input type="checkbox" id="agreement" />
+        I have read and understood the IntelliKids Academy payment structure and engagement terms. <span class="req">*</span>
+      </label>
+      <div class="error-msg" id="agreement-err" style="margin-top:-10px; margin-bottom:1rem;">You must agree to the terms to proceed.</div>
+
+      <div class="submit-error" id="submitError">
+        ⚠️ Something went wrong while submitting. Please check your connection and try again.
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">
+        <span class="spinner" id="spinner"></span>
+        <span id="btnText">Submit Application →</span>
+      </button>
+
+      <p class="footer-note">We respond within 2–3 business days &nbsp;·&nbsp; <a href="https://intellikidsacademy.com" target="_blank">intellikidsacademy.com</a></p>
+    </form>
+
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">✅</div>
+      <h2>Application submitted!</h2>
+      <p>Thank you for your interest in IntelliKids Academy.<br>We'll review your application and get back to you within 2–3 business days on WhatsApp or email.</p>
+      <p style="margin-top:1rem; color:#0F6E56; font-weight:600;">intellikidsacademy.com</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── PASTE YOUR APPS SCRIPT WEB APP URL HERE ──────────────────
+  const SHEET_URL = "YOUhttps://script.google.com/macros/s/AKfycbzx_SN9mh958WpN3Glu7EOhWI953mRUtLJ68WD_YaUESL8kjFEtJKfC8Kjspu47kpGZEg/execR_APPS_SCRIPT_WEB_APP_URL_HERE";
+  // ─────────────────────────────────────────────────────────────
+
+  const form       = document.getElementById('appForm');
+  const submitBtn  = document.getElementById('submitBtn');
+  const btnText    = document.getElementById('btnText');
+  const spinner    = document.getElementById('spinner');
+  const submitError = document.getElementById('submitError');
+
+  function showError(id, show) {
+    const el = document.getElementById(id + '-err');
+    if (el) el.classList.toggle('show', show);
+  }
+
+  function markField(id, hasError) {
+    const el = document.getElementById(id);
+    if (el) el.classList.toggle('error', hasError);
+    showError(id, hasError);
+  }
+
+  function setLoading(on) {
+    submitBtn.disabled = on;
+    spinner.style.display = on ? 'block' : 'none';
+    btnText.textContent = on ? 'Submitting…' : 'Submit Application →';
+  }
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    submitError.classList.remove('show');
+    let valid = true;
+
+    const required = ['fullName','email','phone','city','qualification','experience','subjects','onlineExp','timing','classesPerWeek','device','motivation'];
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      const empty = !el || !el.value.trim();
+      markField(id, empty);
+      if (empty) valid = false;
+    });
+
+    const emailEl = document.getElementById('email');
+    if (emailEl && emailEl.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
+      markField('email', true);
+      valid = false;
+    }
+
+    const ageChecked = [...document.querySelectorAll('input[name="age"]:checked')];
+    document.getElementById('ageGroups-err').classList.toggle('show', ageChecked.length === 0);
+    if (ageChecked.length === 0) valid = false;
+
+    const agreed = document.getElementById('agreement').checked;
+    document.getElementById('agreement-err').classList.toggle('show', !agreed);
+    if (!agreed) valid = false;
+
+    if (!valid) {
+      form.querySelector('.error, .error-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    const payload = {
+      fullName:       document.getElementById('fullName').value.trim(),
+      email:          document.getElementById('email').value.trim(),
+      phone:          document.getElementById('phone').value.trim(),
+      city:           document.getElementById('city').value.trim(),
+      qualification:  document.getElementById('qualification').value,
+      experience:     document.getElementById('experience').value,
+      subjects:       document.getElementById('subjects').value.trim(),
+      ageGroups:      ageChecked.map(cb => cb.value).join(', '),
+      onlineExp:      document.getElementById('onlineExp').value,
+      timing:         document.getElementById('timing').value,
+      classesPerWeek: document.getElementById('classesPerWeek').value,
+      device:         document.getElementById('device').value,
+      motivation:     document.getElementById('motivation').value.trim(),
+      portfolio:      document.getElementById('portfolio').value.trim(),
+      referral:       document.getElementById('referral').value
+    };
+
+    setLoading(true);
+
+    try {
+      await fetch(SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      form.style.display = 'none';
+      document.getElementById('successScreen').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    } catch (err) {
+      setLoading(false);
+      submitError.classList.add('show');
+    }
+  });
+
+  document.querySelectorAll('input, select, textarea').forEach(el => {
+    el.addEventListener('input', () => {
+      el.classList.remove('error');
+      const err = document.getElementById(el.id + '-err');
+      if (err) err.classList.remove('show');
+    });
+    el.addEventListener('change', () => {
+      el.classList.remove('error');
+      const err = document.getElementById(el.id + '-err');
+      if (err) err.classList.remove('show');
+    });
+  });
+</script>
+</body>
+</html>
