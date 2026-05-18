@@ -385,7 +385,7 @@
 
 <script>
   // ── PASTE YOUR APPS SCRIPT WEB APP URL HERE ──────────────────
-  const SHEET_URL = "YOUhttps://script.google.com/macros/s/AKfycbzx_SN9mh958WpN3Glu7EOhWI953mRUtLJ68WD_YaUESL8kjFEtJKfC8Kjspu47kpGZEg/execR_APPS_SCRIPT_WEB_APP_URL_HERE";
+  const SHEET_URL = "https://script.google.com/macros/s/AKfycbzMfJs8BH7bR7M-8iArKvQFYr7068cRrtZo1s8InybV3x4B1YZfbDlhKQuTZ0IvOi3E/exec";
   // ─────────────────────────────────────────────────────────────
 
   const form       = document.getElementById('appForm');
@@ -461,14 +461,19 @@
       referral:       document.getElementById('referral').value
     };
 
+    if (!SHEET_URL || SHEET_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL_HERE') {
+      alert('⚠️ Form not connected yet. Please paste your Apps Script Web App URL into the HTML file.');
+      return;
+    }
+
     setLoading(true);
 
     try {
-      await fetch(SHEET_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+      // GET with URL params — most reliable with Google Apps Script + no-cors
+      const params = new URLSearchParams(payload);
+      await fetch(SHEET_URL + '?' + params.toString(), {
+        method: 'GET',
+        mode: 'no-cors'
       });
 
       form.style.display = 'none';
